@@ -1,0 +1,26 @@
+#!/bin/bash
+
+while getopts ":U:" options; do
+  case $options in
+    U)
+      # lines either side to show
+      lines=$OPTARG
+      shift 2
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
+
+# if lines has not been set use 10 as default
+[ -z "$lines" ] && lines="10"
+
+# -U NUM  --unified[=NUM]
+# Output NUM (default 3) lines of unified context.
+diff -U $lines $1 $2 | diff2html -i stdin -s side
