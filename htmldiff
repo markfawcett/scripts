@@ -23,7 +23,7 @@ done
 
 # -U NUM  --unified[=NUM]
 # Output NUM (default 3) lines of unified context.
-cmdOutput=$(diff -U $lines $1 $2 | diff2html -i stdin -s side)
+cmdOutput=$(diff -U $lines "$1" "$2" | diff2html -i stdin -s side)
 
 # Let the user know if there is no difference
 [ ! "$cmdOutput" ] || echo 'No Difference'
